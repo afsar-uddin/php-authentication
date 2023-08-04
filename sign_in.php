@@ -16,17 +16,16 @@
             if($num > 0) {
                 // echo "Sign in success!";
                 $sing_in_user = 1;
+                session_start();
+                $_SESSION['username'] = $username;
+                header('location:home.php');
             } else {
                 // echo 'Invalid username or password';
                 $sing_in_failed = 1;
             }
         }
-
     }
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
