@@ -1,4 +1,7 @@
 <?php
+    $user = 0;
+    $success = 0;
+    
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         include 'connect.php';
 
@@ -22,13 +25,15 @@
         if($results) {
             $num = mysqli_num_rows($results);
             if($num > 0) {
-                echo "User already exists!";
+                // echo "User already exists!";
+                $user = 1;
             } else {
                 $sql = " insert into `registration`(username, password) values('$username', '$password') ";
                 $results = mysqli_query($con, $sql);
         
                 if($results) {
-                    echo "Data inserted!";
+                    // echo "Signup complete successfully!";
+                    $success = 1;
                 } else {
                     die(mysqli_error($con));
                 }
@@ -49,6 +54,14 @@
 </head>
 <body>
     <div class="nwt-auth">
+        <?php
+            if($user) {
+                ?><h2 style="background-color: red; color: #fff; padding: 14px; border-radius: 5px">username is already taken! Try another username</h2><?php
+            }
+            if($success) {
+                ?><h2 style="background-color: green; color: #fff; padding: 14px; border-radius: 5px">Signup is successfully completed!</h2><?php
+            }
+        ?>
         <form action="sign_up.php" method="post">
             <div class="nwt-field">
                 <label for="username">User Name</label>
